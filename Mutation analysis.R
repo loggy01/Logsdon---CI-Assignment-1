@@ -4,16 +4,16 @@ mutation.data<-read.table("./R/Data/CNV_MC", sep="\t", header=T, row.names=1)
 
 
 
-### log2 transform the gene expression data for consistency ###
+### log2 + 1 transform the gene expression data for consistency ###
 
-mutation.data$IL15.mRNA.expression.RNA.Seq.V2.RSEM <- log2(mutation.data$IL15.mRNA.expression.RNA.Seq.V2.RSEM)
+mutation.data$IL15.mRNA.expression.RNA.Seq.V2.RSEM <- (log2(mutation.data$IL15.mRNA.expression.RNA.Seq.V2.RSEM) + 1)
 
 
 
 ### Remove gene expression values that are below zero or infinite ###
 
 for(i in 1:nrow(mutation.data)){
-    if(mutation.data[i,2] < 0 | is.finite(mutation.data[i,2]) == FALSE){
+    if(is.finite(mutation.data[i,2]) == FALSE){
         mutation.data<-mutation.data[-i,]
     }
 }
@@ -73,7 +73,3 @@ labs(
 scale_x_discrete(
     labels=c("Diploid" = "Diploid\n(n=221)", "Amplification" = "Amplification\n(n=3)","Gain" = "Gain\n(n=48)", "Shallow Deletion" = "Shallow deletion\n(n=90)"),
     limits = c("Diploid", "Amplification", "Gain", "Shallow Deletion"))
-
-
-
-
