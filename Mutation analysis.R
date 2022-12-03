@@ -10,7 +10,7 @@ mutation.data$IL15.mRNA.expression.RNA.Seq.V2.RSEM <- (log2(mutation.data$IL15.m
 
 
 
-### Remove gene expression values that are below zero or infinite ###
+### Remove gene expression values that infinite ###
 
 for(i in 1:nrow(mutation.data)){
     if(is.finite(mutation.data[i,2]) == FALSE){
